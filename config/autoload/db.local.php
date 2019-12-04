@@ -5,6 +5,6 @@ return [
 		'host' => 'inpeco-mysql8',
 		'username' => 'inpeco',
 		'password' => 'inpeco',
-		'databasename' =>  'inpeco'
+		'database_name' =>  'inpeco'
 	]	
 ];

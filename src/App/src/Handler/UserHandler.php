@@ -61,7 +61,7 @@ class UserHandler implements RequestHandlerInterface
     	
     	$response = new JsonResponse($data);
     	
-    	if(emtpy($data)) {
+    	if(empty($data)) {
     		$response = $response->withStatus(404);
     	}
     	

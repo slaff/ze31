@@ -4,20 +4,14 @@ namespace App\Service;
 
 use Psr\Container\ContainerInterface;
 
-class XdevServiceFactory 
+class XDevServiceFactory
 {
-	/**
-	 * 
-	 * @param ContainerInterface $container
-	 * @return \mysql_xdevapi\Schema
-	 */
-	public function __invoke(ContainerInterface $container)	: \mysql_xdevapi\Schema
+	public function __invoke(ContainerInterface $container) : \mysql_xdevapi\Session
 	{
 		$config = $container->get('config');
-                $config = $config["db"];
-		
-		$connectionString = "mysqlx://".$config['username'].":".$config['password']."@".$config["host"];
-		$dbSession = \mysql_xdevapi\getSession($connectionString);
-		return $dbSession->getSchema($config['database_name']);
+		$config = $config['db'];
+		$connectionString = "mysqlx://".$config['username'].":".$config['password']."@".$config['host'];
+		$session = \mysql_xdevapi\getSession($connectionString);
+		return $session;
 	}
 }
