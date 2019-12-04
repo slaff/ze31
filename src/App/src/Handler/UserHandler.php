@@ -52,7 +52,7 @@ class UserHandler implements RequestHandlerInterface
     	}
     	else {
     		$data = $this->userCollection->find(' _id = :id')
-								    		->bind('id', $id)
+    										->bind(['id' => $id])
 								    		->execute()
 								    		->fetchOne();
     		
