@@ -10,7 +10,7 @@ class AuthMiddlewareFactory
 {
     public function __invoke(ContainerInterface $container) : AuthMiddleware
     {
-    	$config = $container->get('config');
+	    $config = $container->get("config");
     	
         return new AuthMiddleware($config);
     }

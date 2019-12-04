@@ -14,7 +14,6 @@ use Zend\Expressive\Router\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Router\Middleware\MethodNotAllowedMiddleware;
 use Zend\Expressive\Router\Middleware\RouteMiddleware;
 use Zend\Stratigility\Middleware\ErrorHandler;
-use App\Middleware\AuthMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -47,8 +46,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // This middleware registers the Zend\Expressive\Router\RouteResult request attribute.
     $app->pipe(RouteMiddleware::class);
     
-    
-    $app->pipe('/api', AuthMiddleware::class);
+    $app->pipe( "/api", \App\Middleware\AuthMiddleware::class);
 
     // The following handle routing failures for common conditions:
     // - HEAD request but no routes answer that method

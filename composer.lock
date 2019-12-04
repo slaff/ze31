@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "c754cfb16fb735defe81b3e1c59f2d9d",
@@ -1634,16 +1634,16 @@
         },
         {
             "name": "zendframework/zend-view",
-            "version": "2.11.4",
+            "version": "2.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-view.git",
-                "reference": "a8b1b2d9b52e191539be861a6529f8c8a0c06b9d"
+                "reference": "e766457bd6ce13c5354e443bb949511b6904d7f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-view/zipball/a8b1b2d9b52e191539be861a6529f8c8a0c06b9d",
-                "reference": "a8b1b2d9b52e191539be861a6529f8c8a0c06b9d",
+                "url": "https://api.github.com/repos/zendframework/zend-view/zipball/e766457bd6ce13c5354e443bb949511b6904d7f5",
+                "reference": "e766457bd6ce13c5354e443bb949511b6904d7f5",
                 "shasum": ""
             },
             "require": {
@@ -1717,7 +1717,7 @@
                 "view",
                 "zf"
             ],
-            "time": "2019-12-04T08:40:50+00:00"
+            "time": "2019-10-11T21:10:04+00:00"
         }
     ],
     "packages-dev": [
