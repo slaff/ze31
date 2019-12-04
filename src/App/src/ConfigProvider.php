@@ -33,10 +33,15 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-                Handler\PingHandler::class => Handler\PingHandlerFactory::class,
-                Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
-                Service\XdevService::class => Service\XdevServiceFactory::class
+            	Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+            	Handler\PingHandler::class     => Handler\PingHandlerFactory::class,
+            	Handler\UserHandler::class => Handler\UserHandlerFactory::class,
+            		
+            	// Middleware factory
+            	Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
+            		
+            	// Services
+            	Service\XdevService::class => Service\XdevServiceFactory::class
             ],
             'aliases' => [
             	'ping' => Handler\PingHandler::class

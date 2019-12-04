@@ -12,6 +12,7 @@ declare(strict_types=1);
 return [
     'dependencies' => [
         'factories' => [
+            App\Handler\UserHandler::class => App\Handler\UserHandlerFactory::class,
             App\Middleware\AuthMiddleware::class => App\Middleware\AuthMiddlewareFactory::class,
         ],
     ],
