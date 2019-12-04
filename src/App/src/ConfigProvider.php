@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
-
 /**
  * The configuration provider for the App module
  *
@@ -35,21 +33,17 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-            	Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
-            	Handler\PingHandler::class     => Handler\PingHandlerFactory::class,
-            		
-            	// Middleware factory
-            	Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
-            		
-            	// Services
-            	Service\XdevService::class => Service\XdevServiceFactory::class
+                Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+                Handler\PingHandler::class => Handler\PingHandlerFactory::class,
+                Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
+                Service\XdevService::class => Service\XdevServiceFactory::class
             ],
-        	'aliases' => [
-        		'xdev' => Service\XdevService::class,
-        	],
-        	'abstract_factories' => [
-        		// TODO: 
-        	]
+            'aliases' => [
+            	'ping' => Handler\PingHandler::class
+            ],
+            'abstract_factories' => [
+            	
+            ]
         ];
     }
 
