@@ -65,4 +65,32 @@ class UserHandler implements RequestHandlerInterface
     	
     	return $response;
     }
+    
+    public function deleteAction(ServerRequestInterface $request): ResponseInterface
+    {
+    	
+    	$id = $request->getAttribute('id');
+    	if($id === null) {
+    		// TODO: Precondition failed
+    		return (new JsonResponse(['success' => false]))->withStatus(412);
+    	}
+    	
+    	$this->userCollection->removeOne($id);
+    	
+    	return new JsonResponse(['success' => true]);
+    }
+    
+    
+    public function postAction(ServerRequestInterface $request): ResponseInterface
+    {
+    	$inputData = $request->getParsedBody();	
+    	
+    	// TODO: filter the data...
+    	
+    	$result = $this->userCollection->add($inputData)->execute();
+    	$id = $result->getGeneratedIds();
+    	
+    	return (new JsonResponse($id))->withStatus(201);
+    }
+    
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
+use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
 
 /**
  * Setup routes with a single request method:
@@ -36,7 +37,15 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
     
-    $app->route('/api/user', App\Handler\UserHandler::class, ['GET', 'POST', 'PATCH'], 'user');
+    $app->get('/api/user', App\Handler\UserHandler::class, 'user.list');
+    
+    $app->route('/api/user', [
+			    		BodyParamsMiddleware::class,
+			    		App\Handler\UserHandler::class,
+			    ],		 
+    			['POST', 'PATCH'], 'user.post');
+    
+    // TODO: updating users after the brake....
     
     $app->get('/api/user/:id', App\Handler\UserHandler::class, 'user.get');
     $app->delete('/api/user/:id', App\Handler\UserHandler::class, 'user.delete');
