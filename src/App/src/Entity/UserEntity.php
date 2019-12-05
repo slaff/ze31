@@ -54,9 +54,9 @@ class UserEntity
 	// ...
 	
 	
-	
 	/**
 	 * @var AddressEntity
+	 * @Annotation\OneToOne
 	 */
 	private $address;
 	/**

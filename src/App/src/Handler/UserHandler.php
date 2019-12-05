@@ -142,7 +142,8 @@ class UserHandler implements RequestHandlerInterface
     	$entity = new UserEntity();
     	$form = $builder->createForm($entity);
     	
-    	$form->setValidationGroup(array_keys($inputData));
+    	$elements = array_keys($inputData);
+    	$form->setValidationGroup(array_keys($inputData)); 
     	
     	$form->bind($entity);
     	$form->setData($inputData);
@@ -158,10 +159,16 @@ class UserHandler implements RequestHandlerInterface
     	$inputData = $form->getData();
     	$inputData = $form->getHydrator()->extract($inputData); // this will get back the data as array
     	
+    	$finalData = [];
+    	foreach($elements as $name) {
+    		if(isset($inputData[$name])) {
+    			$finalData[$name] = $inputData[$name];
+    		}
+    	}
     	
     	$result = $this->userCollection->modify('_id = :id')
     	                               ->bind(['id' => $id])
-    	                               ->patch(json_encode($inputData))
+    	                               ->patch(json_encode($finalData))
     	                               ->execute();
     	
     	$changes = $result->getAffectedItemsCount();
