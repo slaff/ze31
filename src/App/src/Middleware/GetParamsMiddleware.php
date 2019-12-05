@@ -13,7 +13,9 @@ class GetParamsMiddleware implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-    	$request = $request->withQueryParams($this->parseQueryString($_SERVER['QUERY_STRING']));
+    	if(!empty($_SERVER['QUERY_STRING'])) {
+    		$request = $request->withQueryParams($this->parseQueryString($_SERVER['QUERY_STRING']));
+    	}
     	
         return $handler->handle($request);
     }
