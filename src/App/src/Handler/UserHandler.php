@@ -44,7 +44,20 @@ class UserHandler implements RequestHandlerInterface
     	$id = $request->getAttribute('id');
     	
     	if($id === null) {
-    		$data = $this->userCollection->find()
+    		// TODO: filter the data...
+    		
+    		$inputData = $request->getQueryParams();
+    		$searchCondition = '';
+    		foreach ($inputData as $key => $value) {
+    			// TODO: escape the key name
+    			$searchCondition .= "$key = :$key AND ";
+    		}
+    		if(strlen($searchCondition)) {
+    			$searchCondition = substr($searchCondition, 0, -4 );
+    		}
+    		
+    		$data = $this->userCollection->find($searchCondition)
+    									 ->bind($inputData)
     									 ->execute()
     									 ->fetchAll();
     	}
@@ -71,7 +84,6 @@ class UserHandler implements RequestHandlerInterface
     	
     	$id = $request->getAttribute('id');
     	if($id === null) {
-    		// TODO: Precondition failed
     		return (new JsonResponse(['success' => false]))->withStatus(412);
     	}
     	
@@ -93,4 +105,22 @@ class UserHandler implements RequestHandlerInterface
     	return (new JsonResponse($id))->withStatus(201);
     }
     
+    public function patchAction(ServerRequestInterface $request): ResponseInterface
+    {
+    	$id = $request->getAttribute('id');
+    	if($id === null) {
+    		return (new JsonResponse(['success' => false]))->withStatus(412);
+    	}
+    	
+    	$inputData = $request->getParsedBody();	
+    	
+    	// TODO: filter the data...
+    	$result = $this->userCollection->modify('_id = :id')
+    	                               ->bind(['id' => $id])
+    	                               ->patch(json_encode($inputData))
+    	                               ->execute();
+    	
+    	$changes = $result->getAffectedItemsCount();
+    	return new JsonResponse([ 'id' => $id, 'changes'=> $changes]);
+    }
 }

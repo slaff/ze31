@@ -39,13 +39,18 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     
     $app->get('/api/user', App\Handler\UserHandler::class, 'user.list');
     
-    $app->route('/api/user', [
+    $app->post('/api/user', [
 			    		BodyParamsMiddleware::class,
 			    		App\Handler\UserHandler::class,
-			    ],		 
-    			['POST', 'PATCH'], 'user.post');
+			    ],'user.post');
     
     // TODO: updating users after the brake....
+    
+    $app->patch('/api/user/:id', [
+								    BodyParamsMiddleware::class,
+								    App\Handler\UserHandler::class,
+								  ],'user.patch');
+    
     
     $app->get('/api/user/:id', App\Handler\UserHandler::class, 'user.get');
     $app->delete('/api/user/:id', App\Handler\UserHandler::class, 'user.delete');
