@@ -112,8 +112,6 @@ class UserHandler implements RequestHandlerInterface
     	$form->bind($entity);
     	$form->setData($inputData);
     	if(!$form->isValid()) {
-    		// TODO: Precondition failed	
-    		
     		$data  = [
     			'success' => false,
     			'error' => $form->getMessages(),
@@ -140,7 +138,27 @@ class UserHandler implements RequestHandlerInterface
     	
     	$inputData = $request->getParsedBody();	
     	
-    	// TODO: filter the data...
+    	$builder = new AnnotationBuilder();
+    	$entity = new UserEntity();
+    	$form = $builder->createForm($entity);
+    	
+    	$form->setValidationGroup(array_keys($inputData));
+    	
+    	$form->bind($entity);
+    	$form->setData($inputData);
+    	if(!$form->isValid()) {
+    		$data  = [
+    				'success' => false,
+    				'error' => $form->getMessages(),
+    		];
+    		
+    		return (new JsonResponse($data))->withStatus(412);
+    	}
+    	
+    	$inputData = $form->getData();
+    	$inputData = $form->getHydrator()->extract($inputData); // this will get back the data as array
+    	
+    	
     	$result = $this->userCollection->modify('_id = :id')
     	                               ->bind(['id' => $id])
     	                               ->patch(json_encode($inputData))
