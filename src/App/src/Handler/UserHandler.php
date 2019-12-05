@@ -123,7 +123,7 @@ class UserHandler implements RequestHandlerInterface
     	}
     	
     	$inputData = $form->getData();
-    	
+    	$inputData = $form->getHydrator()->extract($inputData); // this will get back the data as array
     	
     	$result = $this->userCollection->add($inputData)->execute();
     	$id = $result->getGeneratedIds();
