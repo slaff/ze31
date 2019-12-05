@@ -47,7 +47,7 @@ class ConfigProvider
             	'ping' => Handler\PingHandler::class
             ],
             'abstract_factories' => [
-            	
+            	Service\CollectionAbstractFactory::class
             ]
         ];
     }
