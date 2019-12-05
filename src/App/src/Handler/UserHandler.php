@@ -37,7 +37,7 @@ class UserHandler implements RequestHandlerInterface
         
         return (new Response())->withStatus(404);
     }
-    
+
     
     public function getAction(ServerRequestInterface $request): ResponseInterface
     {
@@ -48,16 +48,20 @@ class UserHandler implements RequestHandlerInterface
     		
     		$inputData = $request->getQueryParams();
     		$searchCondition = '';
+    		$bindData = [];
     		foreach ($inputData as $key => $value) {
     			// TODO: escape the key name
-    			$searchCondition .= "$key = :$key AND ";
+    			$bindKey = str_replace('.', '_', $key);
+    			$searchCondition .= "$key = :$bindKey AND ";
+    			$bindData[$bindKey] = $value;
     		}
     		if(strlen($searchCondition)) {
     			$searchCondition = substr($searchCondition, 0, -4 );
     		}
+    		$searchCondition = trim($searchCondition);
     		
     		$data = $this->userCollection->find($searchCondition)
-    									 ->bind($inputData)
+    									 ->bind($bindData)
     									 ->execute()
     									 ->fetchAll();
     	}

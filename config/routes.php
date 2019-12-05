@@ -37,7 +37,10 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
     
-    $app->get('/api/user', App\Handler\UserHandler::class, 'user.list');
+    $app->get('/api/user',  [
+    						App\Middleware\GetParamsMiddleware::class,
+    						App\Handler\UserHandler::class
+						    ], 'user.list');
     
     $app->post('/api/user', [
 			    		BodyParamsMiddleware::class,

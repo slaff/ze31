@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 /**
  * The configuration provider for the App module
  *
@@ -39,6 +41,7 @@ class ConfigProvider
             		
             	// Middleware factory
             	Middleware\AuthMiddleware::class => Middleware\AuthMiddlewareFactory::class,
+            	Middleware\GetParamsMiddleware::class => InvokableFactory::class,	
             		
             	// Services
             	Service\XdevService::class => Service\XdevServiceFactory::class
