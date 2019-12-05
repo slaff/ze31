@@ -9,6 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\JsonResponse;
+use Zend\Form\Annotation\AnnotationBuilder;
+use App\Entity\UserEntity;
 
 class UserHandler implements RequestHandlerInterface
 {
@@ -101,7 +103,27 @@ class UserHandler implements RequestHandlerInterface
     {
     	$inputData = $request->getParsedBody();	
     	
-    	// TODO: filter the data...
+    	// filter the data...
+    	
+    	$builder = new AnnotationBuilder();
+    	$entity = new UserEntity();
+    	$form = $builder->createForm($entity);
+    	
+    	$form->bind($entity);
+    	$form->setData($inputData);
+    	if(!$form->isValid()) {
+    		// TODO: Precondition failed	
+    		
+    		$data  = [
+    			'success' => false,
+    			'error' => $form->getMessages(),
+    		];
+    		
+    		return (new JsonResponse($data))->withStatus(412);
+    	}
+    	
+    	$inputData = $form->getData();
+    	
     	
     	$result = $this->userCollection->add($inputData)->execute();
     	$id = $result->getGeneratedIds();
