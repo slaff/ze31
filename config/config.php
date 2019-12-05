@@ -13,6 +13,9 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Zend\Expressive\Authentication\OAuth2\ConfigProvider::class,
+    \Zend\Expressive\Authentication\ConfigProvider::class,
+    \Zend\ProblemDetails\ConfigProvider::class,
     \Zend\Form\ConfigProvider::class,
     \Zend\InputFilter\ConfigProvider::class,
     \Zend\Filter\ConfigProvider::class,

@@ -56,7 +56,7 @@ class UserEntity
 	
 	/**
 	 * @var AddressEntity
-	 * @Annotation\OneToOne
+	 * @Annotation\OneToOne(targetEntity="App\Entity\AddressEntity")
 	 */
 	private $address;
 	/**
